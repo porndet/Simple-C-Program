@@ -147,11 +147,39 @@ void DisplayXOGame(char numberXO[]){
     printf("########\n");
 }
 
-int main(void){
+void Computer(char numberXO[], char mark){
+    bool isComputer = true;
+    int computer;
 
+    printf("Comuter * Select number : ");
+    while(isComputer){
+        computer = rand() % 9 + 1;
+        if(numberXO[computer - 1] != mark && numberXO[computer - 1] != '*'){
+            printf("%d\n", computer);
+            numberXO[computer - 1] = '*';
+            isComputer = false;
+        }
+    }
+}
+
+void Player(char numberXO[], char mark, String name){
+    bool isPlayer = true;
+    int player;
+
+    while(isPlayer){
+        printf("%s %c Please select number : ", name, mark);
+        scanf("%d", &player);
+        if(numberXO[player - 1] != mark && numberXO[player - 1] != '*'){
+            numberXO[player - 1] = mark;
+            isPlayer = false;
+        }
+    }    
+}
+
+int main(void){
     char numberXO[9] = {'1','2','3','4','5','6','7','8','9'};
-    int player, computer, checkMark, attackFirstSecond;
-    bool isPlayer, isComputer, isComplete = true;
+    int checkMark, attackFirstSecond;
+    bool isComplete = true;
     char Playername[10], mark;
     String nameplayer;
     srand(time(NULL));
@@ -184,51 +212,16 @@ int main(void){
 
     printf("### XO GAME ###\n");
     printf("+-+-+-+\n");
+
     while(isComplete){
-        isPlayer = true;
-        isComputer = true;
         DisplayXOGame(numberXO);
-
+        
         if(attackFirstSecond == 1){
-            printf("Comuter * Select number : ");
-            while(isComputer){
-                computer = rand() % 9 + 1;
-                if(numberXO[computer - 1] != mark && numberXO[computer - 1] != '*'){
-                    printf("%d\n", computer);
-                    numberXO[computer - 1] = '*';
-                    isComputer = false;
-                }
-            }
-
-
-            while(isPlayer){
-                printf("%s %c Please select number : ", nameplayer, mark);
-                scanf("%d", &player);
-                if(numberXO[player - 1] != mark && numberXO[player - 1] != '*'){
-                    numberXO[player - 1] = mark;
-                    isPlayer = false;
-                }
-            }
+            Computer(numberXO, mark);
+            Player(numberXO, mark, nameplayer);
         }else{
-            while(isPlayer){
-                printf("%s %c Please select number : ", nameplayer, mark);
-                scanf("%d", &player);
-                if(numberXO[player - 1] != mark && numberXO[player - 1] != '*'){
-                    numberXO[player - 1] = mark;
-                    isPlayer = false;
-                }
-            }      
-                    
-            printf("Comuter * Select number : ");
-            while(isComputer){
-                computer = rand() % 9 + 1;
-                if(numberXO[computer - 1] != mark && numberXO[computer - 1] != '*'){
-                    printf("%d\n", computer);
-                    numberXO[computer - 1] = '*';
-                    isComputer = false;
-                }
-            }
-   
+            Player(numberXO, mark, nameplayer);
+            Computer(numberXO, mark);
         }
 
         int checkWin = CheckWin(numberXO, mark);
