@@ -179,23 +179,206 @@ void Player(char numberXO[], char mark, String name){
 const int CheckwinDisplayBoardGame(char numberXO[], String name, char mark){
     int checkWin = CheckWin(numberXO, mark);
     if(checkWin == 1){
-        DisplayXOGame(numberXO);
-        printf("%s %c Win!!", name, mark);
+        // DisplayXOGame(numberXO);
+        printf("%s %c Win!!\n", name, mark);
     }else if(checkWin == 2){
-        DisplayXOGame(numberXO);
-        printf("Computer * Win!!");
+        // DisplayXOGame(numberXO);
+        printf("Computer * Win!!\n");
+    }
+    return checkWin;
+}
+
+const int CheckwinDisplayBoardGame1(char numberXO[], String name, String name1, char mark, char mark1){
+    int checkWin = CheckWin(numberXO, mark);
+    if(checkWin == 1){
+        // DisplayXOGame(numberXO);
+        printf("%s %c Win!!\n", name, mark);
+    }else if(checkWin == 2){
+        // DisplayXOGame(numberXO);
+        printf("%s %c Win!!\n", name1, mark1);
     }
     return checkWin;
 }
 
 int main(void){
     char numberXO[9] = {'1','2','3','4','5','6','7','8','9'};
-    int checkMark, attackFirstSecond;
+    int checkMark, attackFirstSecond, duel;
     bool isComplete = true;
     char Playername[10], mark;
     String nameplayer;
     srand(time(NULL));
 
+    printf("Duel Computer or Duel player\n");
+    printf("Want duel computer select 0 but select 1 will duel player\n");
+    scanf("%d", &duel);
+
+    if(duel == 0){
+        printf("Duel Computer\n");
+
+        do{
+            printf("------Please put name player------\n>");
+            scanf("%10s%*[^\n]", Playername);
+            printf("------Player name : %s ------\n\n\n", Playername);
+            strcpy(nameplayer, Playername);
+        }while(strncmp(Playername, "Computer", strlen("Computer")) == 0);
+        
+        printf("------Please put player mark------\n");
+        printf("Mark to used #, $, %, &, @, A-Z , a-z\n");
+        scanf("%s", &mark);
+
+        checkMark = (int)mark;
+
+        if(!((checkMark >= 35 && checkMark <= 38) || checkMark == 64 || (checkMark >= 65 && checkMark <= 90) || (checkMark >= 97 && checkMark <= 122))){
+            printf("Error You put mark without to setting\n");
+            mark = 'o';        
+        }
+
+        printf("------ First Attack Put : (0)  Second Attack Put : (1) ------\n");
+        scanf("%d", &attackFirstSecond);
+        if(attackFirstSecond == 0 && attackFirstSecond == 1){
+            printf("Error You put without to setting\n");
+        }
+
+        printf("------ Mark of %s is %c %s ------\n", nameplayer, mark, (attackFirstSecond == 0)? "First Attack" : (attackFirstSecond == 1)? "Second Attack" : "First Attack");
+
+        printf("### XO GAME ###\n");
+        printf("+-+-+-+\n");
+        DisplayXOGame(numberXO);
+
+        while(isComplete){
+            int temp = 0;
+            if(attackFirstSecond == 1){
+                Computer(numberXO, mark);
+                DisplayXOGame(numberXO);
+                temp = CheckwinDisplayBoardGame(numberXO, nameplayer, mark);
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
+
+                Player(numberXO, mark, nameplayer);
+                DisplayXOGame(numberXO);
+                temp = CheckwinDisplayBoardGame(numberXO, nameplayer, mark);
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
+            }else{
+                Player(numberXO, mark, nameplayer);
+                DisplayXOGame(numberXO);
+                temp = CheckwinDisplayBoardGame(numberXO, nameplayer, mark);
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
+                
+                Computer(numberXO, mark);
+                 DisplayXOGame(numberXO);
+                temp = CheckwinDisplayBoardGame(numberXO, nameplayer, mark);
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
+            }
+        }
+    }else{
+        printf("Duel Player\n");
+        String nameplayer1;
+        char Playername1[10];
+        char mark1;
+
+        do{
+            printf("------Please put name player No.1 ------\n>");
+            scanf("%10s%*[^\n]", Playername);
+            printf("------Player name : %s ------\n\n", Playername);
+            strcpy(nameplayer, Playername);
+        }while(strncmp(Playername, "Computer", strlen("Computer")) == 0);   
+        
+        printf("------Please put player mark------\n");
+        printf("Mark to used #, $, %, &, @, A-Z , a-z\n");
+        scanf("%s", &mark);
+
+        checkMark = (int)mark;
+
+        if(!((checkMark >= 35 && checkMark <= 38) || checkMark == 64 || (checkMark >= 65 && checkMark <= 90) || (checkMark >= 97 && checkMark <= 122))){
+            printf("Error You put mark without to setting\n");
+            mark = 'o';        
+        }
+
+        printf("------ First Attack Put : (0)  Second Attack Put : (1) ------\n");
+        scanf("%d", &attackFirstSecond);
+        if(attackFirstSecond == 0 && attackFirstSecond == 1){
+            printf("Error You put without to setting\n");
+        }
+
+        printf("------ Mark of %s is %c %s ------\n", nameplayer, mark, (attackFirstSecond == 0)? "First Attack" : (attackFirstSecond == 1)? "Second Attack" : "First Attack");
+
+        do{
+            printf("\n------Please put name player No.2 ------\n>");
+            scanf("%10s%*[^\n]", Playername1);
+            printf("------Player name : %s ------\n\n", Playername1);
+            strcpy(nameplayer1, Playername1);
+        }while(strncmp(Playername1, "Computer", strlen("Computer")) == 0); 
+
+        printf("------Please put player mark------\n");
+        printf("Mark to used #, $, %, &, @, A-Z , a-z\n");
+        scanf("%s", &mark1);
+
+        checkMark = (int)mark1;
+
+        if(!((checkMark >= 35 && checkMark <= 38) || checkMark == 64 || (checkMark >= 65 && checkMark <= 90) || (checkMark >= 97 && checkMark <= 122))){
+            printf("Error You put mark without to setting\n");
+            mark1 = '*';        
+        } 
+        printf("------ Mark of %s is %c ------\n", nameplayer1, mark1);     
+
+
+        printf("### XO GAME ###\n");
+        printf("+-+-+-+\n");
+        DisplayXOGame(numberXO);
+
+        while(isComplete){     
+            int temp = 0;
+            if(attackFirstSecond == 1){
+                Player(numberXO, mark1, nameplayer1);
+                DisplayXOGame(numberXO);
+                temp = CheckwinDisplayBoardGame1(numberXO, nameplayer, nameplayer1, mark, mark1);
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
+
+                Player(numberXO, mark, nameplayer);
+                DisplayXOGame(numberXO);
+                temp = CheckwinDisplayBoardGame1(numberXO, nameplayer, nameplayer1, mark, mark1);
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
+            }else{
+                Player(numberXO, mark, nameplayer);
+                DisplayXOGame(numberXO);
+                temp = CheckwinDisplayBoardGame1(numberXO, nameplayer, nameplayer1, mark, mark1);
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
+
+                Player(numberXO, mark1, nameplayer1);
+                DisplayXOGame(numberXO);
+                temp = CheckwinDisplayBoardGame1(numberXO, nameplayer, nameplayer1, mark, mark1);
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
+            }
+
+        }
+
+    }
+
+
+    /*
     do{
         printf("------Please put name player------\n>");
         scanf("%10s%*[^\n]", Playername);
@@ -249,4 +432,5 @@ int main(void){
             break;
         }
     }
+    */
 }
