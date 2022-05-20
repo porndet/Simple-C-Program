@@ -1,2 +1,1 @@
-
-            printf("------Please put name pla
+vertical
