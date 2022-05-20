@@ -19,6 +19,10 @@ int main() {
     uint8_t b = 197;
     uint8_t c = 5;
 
+    srand(time(NULL));
+
+    printf("%d", rand() % 3 + 1);
+
     //1
     // printf("Before Caluculate a : ");
     // printbi(a);

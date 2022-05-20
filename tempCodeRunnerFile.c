@@ -1,1 +1,2 @@
-    // printf("Final hexadecimal string: %s\n", hexStr);
+
+            printf("------Please put name pla
