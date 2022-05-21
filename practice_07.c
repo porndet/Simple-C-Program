@@ -1,72 +1,3 @@
-// #include <stdio.h>
-// #include <time.h>
-// #include <stdlib.h>
-// #include <stdbool.h>
-// #include <string.h>
-// #include <stdint.h>
-
-// typedef char String[1024];
-
-// void DisplayXOGame(char numberXO[]){
-//     printf("|%c|%c|%c|\n", numberXO[0], numberXO[1], numberXO[2]);
-//     printf("+-+-+-+\n");
-//     printf("|%c|%c|%c|\n", numberXO[3], numberXO[4], numberXO[5]);
-//     printf("+-+-+-+\n");
-//     printf("|%c|%c|%c|\n", numberXO[6], numberXO[7], numberXO[8]);
-//     printf("########\n");
-// }
-
-// void CompleteGame(int win, char player[]){
-//     if(win = 1){
-//         printf("End Game : %s Win!\n", player);
-//     }else{
-//         printf("End Game : Computer Win!\n");
-//     }
-// }
-
-
-// int main() {
-//     char numberXO[9] = {'1','2','3','4','5','6','7','8','9'};
-//     char Playername[10];
-//     int player, computer, checkMark;
-//     char mark;
-
-//     do{
-//         printf("------Please put name player------\n>");
-//         scanf("%10s%*[^\n]", Playername);
-//         printf("------Player name : %s ------\n\n", Playername);
-//     }while(strncmp(Playername, "Computer", strlen("Computer")) == 0);
-
-//     printf("------Please put player mark------\n");
-//     printf("Mark to used #, $, %, &, @, A-Z , a-z\n");
-//     scanf("%s", &mark);
-
-//     checkMark = (int)mark;
-
-//     if(!((checkMark >= 35 && checkMark <= 38) || checkMark == 64 || (checkMark >= 65 && checkMark <= 90) || (checkMark >= 97 && checkMark <= 122))){
-//         printf("Error You put mark without to setting\n");
-//         mark = 'o';        
-//     }
-
-//     printf("------ Mark of %s is %c ------\n", Playername, mark);
-
-//     printf("### XO GAME ###\n");
-//     printf("+-+-+-+\n");
-    
-//     DisplayXOGame(numberXO);
-
-//     printf("------Turn %s ------\n", Playername);
-//     printf("%s : o Plase select number : ", Playername);
-//     scanf("%d", &player);
-
-//     printf("------Turn Computer ------\n");
-//     printf("Computer : x Plase select number : %d\n", rand() % 9 + 1);
-    
-//     CompleteGame(1, Playername);
-
-// 	return 0;
-// }
-
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -77,238 +8,7 @@
 typedef char String[1024];
 #define lengthColumnRow 4
 
-/*
-numberXO[0][0] = 1;
-numberXO[0][1] = 2;
-numberXO[0][2] = 3;
-numberXO[0][3] = 4;
-*/
-
-/*
-numberXO[1][0] = 5;
-numberXO[1][1] = 6;
-numberXO[1][2] = 7;
-numberXO[1][3] = 8;
-*/
-
-/*
-numberXO[2][0] = 9;
-numberXO[2][1] = 10;
-numberXO[2][2] = 11;
-numberXO[2][3] = 12;
-*/
-
-/*
-numberXO[3][0] = 13;
-numberXO[3][1] = 14;
-numberXO[3][2] = 15;
-numberXO[3][3] = 16;
-*/
-
-int CheckWin1(char numberXO[][lengthColumnRow], char mark){
-
-    if(numberXO[0][0] == numberXO[0][1] && numberXO[0][1] == numberXO[0][2] && numberXO[0][2] == numberXO[0][3]){
-        //1 2 3 4
-        if(numberXO[0][0] == mark){
-            return 1;
-        }else if(numberXO[0][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[1][0] == numberXO[1][1] && numberXO[1][1] == numberXO[1][2] && numberXO[1][2] == numberXO[1][3]){
-        //5 6 7 8
-        if(numberXO[1][0] == mark){
-            return 1;
-        }else if(numberXO[1][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[2][0] == numberXO[2][1] && numberXO[2][1] == numberXO[2][2] && numberXO[2][2] == numberXO[2][2]){
-        //9 10 11 12
-        if(numberXO[2][0] == mark){
-            return 1;
-        }else if(numberXO[2][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[3][0] == numberXO[3][1] && numberXO[3][1] == numberXO[3][2] && numberXO[3][2] == numberXO[3][2]){
-        //13 14 15 16
-        if(numberXO[3][0] == mark){
-            return 1;
-        }else if(numberXO[3][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][0] == numberXO[1][1] && numberXO[1][1] == numberXO[2][2] && numberXO[2][2] == numberXO[3][3]){
-        //1 6 11 16
-        if(numberXO[0][0] == mark){
-            return 1;
-        }else if(numberXO[0][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][0] == numberXO[1][0] && numberXO[1][0] == numberXO[2][0] && numberXO[2][0] == numberXO[3][0]){
-        //1 5 9 13
-        if(numberXO[0][0] == mark){
-            return 1;
-        }else if(numberXO[0][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][1] == numberXO[1][1] && numberXO[1][1] == numberXO[2][1] && numberXO[2][1] == numberXO[3][1]){
-        //2 6 10 14
-        if(numberXO[0][1] == mark){
-            return 1;
-        }else if(numberXO[0][1] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][2] == numberXO[1][2] && numberXO[1][2] == numberXO[2][2] && numberXO[2][2] == numberXO[3][2]){
-        //3 7 11 15
-        if(numberXO[0][2] == mark){
-            return 1;
-        }else if(numberXO[0][2] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][3] == numberXO[1][2] && numberXO[1][2] == numberXO[2][1] && numberXO[2][1] == numberXO[3][0]){
-        //4 7 10 13
-        if(numberXO[0][3] == mark){
-            return 1;
-        }else if(numberXO[0][3] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][3] == numberXO[1][3] && numberXO[1][3] == numberXO[2][3] && numberXO[2][3] == numberXO[3][3]){
-        //4 8 12 16
-        if(numberXO[0][3] == mark){
-            return 1;
-        }else if(numberXO[0][3] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else{
-        return 0;
-    }
-
-}
-
-int CheckWin2(char numberXO[][lengthColumnRow], char mark, char mark1){
-    if(numberXO[0][0] == numberXO[0][1] && numberXO[0][1] == numberXO[0][2]){
-        //1 2 3
-        if(numberXO[0][0] == mark){
-            return 1;
-        }else if(numberXO[0][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[1][0] == numberXO[1][1] && numberXO[1][1] == numberXO[1][2]){
-        //4 5 6
-        if(numberXO[1][0] == mark){
-            return 1;
-        }else if(numberXO[1][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[2][0] == numberXO[2][1] && numberXO[2][1] == numberXO[2][2]){
-        //7 8 9
-        if(numberXO[2][0] == mark){
-            return 1;
-        }else if(numberXO[2][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][0] == numberXO[1][1] && numberXO[1][1] == numberXO[2][2]){
-        //1 5 9
-        if(numberXO[0][0] == mark){
-            return 1;
-        }else if(numberXO[0][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][0] == numberXO[1][0] && numberXO[1][0] == numberXO[2][0]){
-        //1 4 7
-        if(numberXO[0][0] == mark){
-            return 1;
-        }else if(numberXO[0][0] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][1] == numberXO[1][1] && numberXO[1][1] == numberXO[2][1]){
-        //2 5 8
-        if(numberXO[0][1] == mark){
-            return 1;
-        }else if(numberXO[0][1] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][2] == numberXO[1][1] && numberXO[1][1] == numberXO[2][0]){
-        //3 5 7
-        if(numberXO[0][2] == mark){
-            return 1;
-        }else if(numberXO[0][2] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else if(numberXO[0][2] == numberXO[1][2] && numberXO[1][2] == numberXO[2][2]){
-        //3 6 9
-        if(numberXO[0][2] == mark){
-            return 1;
-        }else if(numberXO[0][2] != '?'){
-            return 2;
-        }else{
-            return 0;
-        }
-    }else{
-        return 0;
-    }
-}
-
-
-void New_DisplayXOGame(char numberXO[][lengthColumnRow], int column[], int row[]){
-    printf(" ");
-    for(int i = 0; i < lengthColumnRow; i++){
-        printf("|%d", column[i]);
-    }
-    printf("|\n");
-    
-    printf(" ");
-    for(int i = 0; i < lengthColumnRow; i++){
-        printf("+-");
-    }
-    printf("+\n");
-
-    for(int i = 0; i < lengthColumnRow; i++){
-        printf("%d|", row[i]);
-        for(int j = 0; j < lengthColumnRow; j++){
-            printf("%c|", numberXO[i][j]);
-        }
-        printf("\n ");
-        for(int i = 0; i < lengthColumnRow; i++){
-            printf("+-");
-        }
-        printf("+\n");
-    }
-}
-
-void New_DisplayXOGame1(char* numberXO, int* column, int* row, int ver, int hori){
+void New_DisplayXOGame(char* numberXO, int* column, int* row, int ver, int hori){
     printf(" ");
     for(int i = 0; i < ver; i++){
         printf("|%d", column[i]);
@@ -334,29 +34,13 @@ void New_DisplayXOGame1(char* numberXO, int* column, int* row, int ver, int hori
     }
 }
 
-void New_Computer(char numberXO[][lengthColumnRow], char mark){
+void New_Computer(char* numberXO, char mark, int ver, int hori){
     bool isComputer = true;
     int vertical, horizontal;
 
     while(isComputer){
-        vertical = rand() % lengthColumnRow + 1;
-        horizontal = rand() % lengthColumnRow + 1;
-        if(numberXO[horizontal - 1][vertical - 1] != mark && numberXO[horizontal - 1][vertical - 1] != '*'){
-            isComputer = false;
-            numberXO[horizontal - 1][vertical - 1] = '*';
-        }
-    }
-    printf("Computer : * select vertical : %d\n", vertical);
-    printf("Computer : * select horizontal : %d\n", horizontal);
-}
-
-void New_Computer1(char* numberXO, char mark, int ver){
-    bool isComputer = true;
-    int vertical, horizontal;
-
-    while(isComputer){
-        vertical = rand() % lengthColumnRow + 1;
-        horizontal = rand() % lengthColumnRow + 1;
+        vertical = rand() % ver + 1;
+        horizontal = rand() % hori + 1;
         if(*(numberXO + (horizontal - 1) * ver + (vertical - 1)) != mark && *(numberXO + (horizontal - 1) * ver + (vertical - 1)) != '*'){
             *(numberXO + (horizontal - 1) * ver + (vertical - 1)) = '*';
             isComputer = false;
@@ -366,25 +50,7 @@ void New_Computer1(char* numberXO, char mark, int ver){
     printf("Computer : * select horizontal : %d\n", horizontal);
 }
 
-
-void NewPlayer(char numberXO[][lengthColumnRow], char mark, String name){
-    bool isPlayer = true;
-    int vertical, horizontal;
-
-    while(isPlayer){
-        printf("%s : %c select vertical : ", name, mark);
-        scanf("%d", &vertical);
-        printf("%s : %c select horizontal : ", name, mark);
-        scanf("%d", &horizontal);
-
-        if(numberXO[horizontal - 1][vertical - 1] != mark && numberXO[horizontal - 1][vertical - 1] != '*'){
-            numberXO[horizontal - 1][vertical - 1] = mark;
-            isPlayer = false;
-        }
-    }    
-}
-
-void NewPlayer1(char* numberXO, char mark, String name, int ver){
+void NewPlayer(char* numberXO, char mark, String name, int ver){
     bool isPlayer = true;
     int vertical, horizontal;
 
@@ -398,54 +64,285 @@ void NewPlayer1(char* numberXO, char mark, String name, int ver){
     }
 }
 
-const int CheckwinDisplayBoardGame2(char numberXO[][lengthColumnRow], String name, char mark){
-    int checkWin = CheckWin1(numberXO, mark);
-    if(checkWin == 1){
-        // DisplayXOGame(numberXO);
-        printf("%s %c Win!!\n", name, mark);
-    }else if(checkWin == 2){
-        // DisplayXOGame(numberXO);
-        printf("Computer * Win!!\n");
-    }
-    return checkWin;
-}
-
-void CheckWin3(char* numberXO, char mark, int ver){
-
-}
-
-const int CheckwinXOGame(char* numberXO, String name, char mark, int ver, int hori){
-    int checkWin = 0;
-    int count = 0;
+const int CheckwinXOGame(char* numberXO, String name, char mark, int ver, int hori, char mark1){
+    int count = 0, countcom = 0;
+    int countrow = ver;
+    int countcolumn = hori;
+    int column[9] = {0};
+    int row[9] = {0};
+    int rowcom[9] = {0};
+    int columncom[9] = {0};
 
     for(int i = 0; i < hori; i++){
         for(int j = 0; j < ver; j++){
-            if(*(numberXO + i * ver + j) == mark){
-                printf("%d ", i * ver + j);
+            if(i == 0){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[0] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[0] += 1;
+                }
+                if(countrow == row[0]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[0]){
+                    return 2;
+                    break;
+                }      
+            }else if(i == 1){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[1] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[1] += 1;
+                }
+                if(countrow == row[1]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[1]){
+                    return 2;
+                    break;
+                }              
+            }else if(i == 2){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[2] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[2] += 1;
+                }
+                if(countrow == row[2]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[2]){
+                    return 2;
+                    break;
+                }             
+            }else if(i == 3){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[3] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[3] += 1;
+                }
+                if(countrow == row[3]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[3]){
+                    return 2;
+                    break;
+                }              
+            }else if(i == 4){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[4] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[4] += 1;
+                }
+                if(countrow == row[4]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[4]){
+                    return 2;
+                    break;
+                }             
+            }else if(i == 5){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[5] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[5] += 1;
+                }
+                if(countrow == row[5]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[5]){
+                    return 2;
+                    break;
+                }             
+            }else if(i == 6){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[6] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[6] += 1;
+                }
+                if(countrow == row[6]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[6]){
+                    return 2;
+                    break;
+                }            
+            }else if(i == 7){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[7] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[7] += 1;
+                }
+                if(countrow == row[7]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[7]){
+                    return 2;
+                    break;
+                }             
+            }else if(i == 8){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[8] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[8] += 1;
+                }
+                if(countrow == row[8]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[8]){
+                    return 2;
+                    break;
+                }             
+            }else if(i == 9){
+                if(*(numberXO + i * ver + j) == mark){
+                    row[9] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    rowcom[9] += 1;
+                }
+                if(countrow == row[9]){
+                    return 1;
+                    break;
+                }else if(countrow == rowcom[9]){
+                    return 2;
+                    break;
+                }             
+            }                   
+
+            if(j == 0){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[0] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[0] += 1;
+                }
+                if(countcolumn == column[0]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[0]){
+                    return 2;
+                    break;
+                }
+            }else if(j == 1){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[1] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[1] += 1;
+                }
+                if(countcolumn == column[1]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[1]){
+                    return 2;
+                    break;
+                }           
+            }else if(j == 2){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[2] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[2] += 1;
+                }
+                if(countcolumn == column[2]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[2]){
+                    return 2;
+                    break;
+                }              
+            }else if(j == 3){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[3] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[3] += 1;
+                }
+                if(countcolumn == column[3]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[3]){
+                    return 2;
+                    break;
+                }                              
+            }else if(j == 4){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[4] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[4] += 1;
+                }
+                if(countcolumn == column[4]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[4]){
+                    return 2;
+                    break;
+                }                               
+            }else if(j == 5){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[5] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[5] += 1;
+                }
+                if(countcolumn == column[5]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[5]){
+                    return 2;
+                    break;
+                }                              
+            }else if(j == 6){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[6] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[6] += 1;
+                }
+                if(countcolumn == column[6]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[6]){
+                    return 2;
+                    break;
+                }                                 
+            }else if(j == 7){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[7] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[7] += 1;
+                }
+                if(countcolumn == column[7]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[7]){
+                    return 2;
+                    break;
+                }                              
+            }else if(j == 8){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[8] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[8] += 1;
+                }
+                if(countcolumn == column[8]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[8]){
+                    return 2;
+                    break;
+                }                                 
+            }else if(j == 9){
+                if(*(numberXO + i * ver + j) == mark){
+                    column[9] += 1;
+                }else if(*(numberXO + i * ver + j) == mark1){
+                    columncom[9] += 1;
+                }
+                if(countcolumn == column[9]){
+                    return 1;
+                    break;
+                }else if(countcolumn == columncom[9]){
+                    return 2;
+                    break;
+                }                                
             }
         }
     }
-    
-
-
-}
-
-const int CheckwinDisplayBoardGame3(char numberXO[][lengthColumnRow], String name, String name1, char mark, char mark1){
-    int checkWin = CheckWin1(numberXO, mark);
-    if(checkWin == 1){
-        // DisplayXOGame(numberXO);
-        printf("%s %c Win!!\n", name, mark);
-    }else if(checkWin == 2){
-        // DisplayXOGame(numberXO);
-        printf("%s %c Win!!\n", name1, mark1);
-    }
-    return checkWin;
 }
 
 int main(void){
-    // char numberXO1[lengthColumnRow][lengthColumnRow];
-    char *numberXO2;
-
     int checkMark, attackFirstSecond, duel, vertical, horizontal;
     bool isComplete = true;
     char Playername[10], mark;
@@ -461,54 +358,20 @@ int main(void){
     int *ptrcolumn = malloc(vertical * sizeof(int));
     int *ptrrow = malloc(horizontal * sizeof(int));
 
-//    int row = 5, col = 4;
-//    int *a = (int *)malloc(row * col * sizeof(int));
-
-   int i, j;
-   for (i = 0; i < horizontal; i++)
-      for (j = 0; j < vertical; j++)
-         *(ptrNumberXO + i * vertical + j) = '?';    
-
-    // for (i = 0; i < horizontal; i++) {
-    //     for (j = 0; j < vertical; j++) {
-    //         printf("%c ", *(ptrNumberXO + i * vertical + j));
-    //     }
-    //     printf("\n");
-    // }
-//    free(ptrNumberXO);
+    int i, j;
+    for (i = 0; i < horizontal; i++)
+        for (j = 0; j < vertical; j++)
+            *(ptrNumberXO + i * vertical + j) = '?';    
 
     for(int i = 0; i < vertical; i++){
         ptrcolumn[i] = i + 1;
     }
 
-    // for(int i = 0; i < vertical; i++){
-    //     printf("%d ", ptrcolumn[i]);
-    // }
-    // printf("\n");
-
     for(int i = 0; i < horizontal; i++){
         ptrrow[i] = i + 1;
     }
 
-    // for(int i = 0; i < horizontal; i++){
-    //     printf("%d ", ptrrow[i]);
-    // }
-
-    //horizontal
-    //vertical
-
-    // *(ptrNumberXO + 0 * vertical + 0) = 'o';
-    // *(ptrNumberXO + 0 * vertical + 1) = 'x';
-    // *(ptrNumberXO + 0 * vertical + 2) = 'o';
-    // *(ptrNumberXO + 0 * vertical + 3) = 'x';
-    // *(ptrNumberXO + 0 * vertical + 4) = 'o';
-
-    // *(ptrNumberXO + 1 * vertical + 0) = 'o';
-    // *(ptrNumberXO + 1 * vertical + 1) = 'x';
-
-    // *(ptrNumberXO + 3 * vertical + 4) = 'x';
-
-    New_DisplayXOGame1(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+    New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
 
     printf("Duel Computer or Duel player\n");
     printf("Want duel co0mputer select 0 but select 1 will duel player\n");
@@ -516,7 +379,6 @@ int main(void){
 
     if(duel == 0){
         printf("Duel Computer\n");
-
         do{
             printf("------Please put name player------\n>");
             scanf("%10s%*[^\n]", Playername);
@@ -545,45 +407,30 @@ int main(void){
 
         printf("### XO GAME ###\n");
         printf("+-+-+-+\n");
-        New_DisplayXOGame1(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+        New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
 
         while(isComplete){
             int temp = 0;
             if(attackFirstSecond == 1){
-                isComplete = false;
-                // New_Computer(numberXO1, mark);
-                // New_DisplayXOGame1(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
-                // temp = CheckwinDisplayBoardGame2(numberXO1, nameplayer, mark);
-                // if(temp == 1 || temp == 2){
-                //     isComplete = false;
-                //     break;
-                // }
-
-                // NewPlayer(numberXO1, mark, nameplayer);
-                // New_DisplayXOGame1(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
-                // temp = CheckwinDisplayBoardGame2(numberXO1, nameplayer, mark);
-                // if(temp == 1 || temp == 2){
-                //     isComplete = false;
-                //     break;
-                // }
+                New_Computer(ptrNumberXO, mark, vertical, horizontal);
+                NewPlayer(ptrNumberXO, mark, nameplayer, vertical);
+                New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+                CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
+                temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
             }else{
-                NewPlayer1(ptrNumberXO, mark, nameplayer, vertical);
-                New_DisplayXOGame1(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
-                CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal);
-                // isComplete = false;
-                // temp = CheckwinDisplayBoardGame2(numberXO1, nameplayer, mark);
-                // if(temp == 1 || temp == 2){
-                //     isComplete = false;
-                //     break;
-                // }
-                
-                New_Computer1(ptrNumberXO, mark, vertical);
-                New_DisplayXOGame1(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
-                // temp = CheckwinDisplayBoardGame2(numberXO1, nameplayer, mark);
-                // if(temp == 1 || temp == 2){
-                //     isComplete = false;
-                //     break;
-                // }
+                NewPlayer(ptrNumberXO, mark, nameplayer, vertical);
+                New_Computer(ptrNumberXO, mark, vertical, horizontal);
+                New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+                CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
+                temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
             }
         }
     }else{
