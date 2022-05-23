@@ -64,15 +64,165 @@ void NewPlayer(char* numberXO, char mark, String name, int ver){
     }
 }
 
-const int CheckwinXOGame(char* numberXO, String name, char mark, int ver, int hori, char mark1){
-    int count = 0, countcom = 0;
-    int countrow = ver;
-    int countcolumn = hori;
-    int column[9] = {0};
-    int row[9] = {0};
-    int rowcom[9] = {0};
-    int columncom[9] = {0};
+const int CheckrowXOGame(char* numberXO, char mark, char mark1, int ver, int hori){
+    int row = 0, rowcom = 0;
+    bool isTrue = false;
 
+    for(int i = 0; i < hori; i++){
+        for(int j = 0; j < ver; j++){
+            if(*(numberXO + i * ver + j) == mark){
+                row += 1;
+            }else if(*(numberXO + i * ver + j) == mark1){
+                rowcom += 1;
+            }
+            if(row == ver || rowcom == ver){
+                isTrue = true;
+                break;
+            }
+        }
+        if(!isTrue){
+            row = 0;
+            rowcom = 0;
+        }
+        else{
+            if(row == ver){
+                return 1;
+            }else{
+                return 2;
+            }
+            break;
+        }
+    }
+    if(!isTrue)
+        return 0;   
+}
+
+const int CheckcolumnXOGame(char* numberXO, char mark, char mark1, int ver, int hori){
+    int column = 0;
+    int stackColumn[9] = {0};
+    int stackColumnCom[9] = {0};
+    bool isTrue = false, isTrueCom = false;
+
+    for(int i = 0; i < hori; i++){
+        for(int j = 0; j < ver; j++){
+            if(*(numberXO + i * ver + j) == mark){
+                if(j == 0)
+                    stackColumn[j] += 1;
+                else if(j == 1)
+                    stackColumn[j] += 1;
+                else if(j == 2)
+                    stackColumn[j] += 1;
+                else if(j == 3)
+                    stackColumn[j] += 1;
+                else if(j == 4)
+                    stackColumn[j] += 1;
+                else if(j == 5)
+                    stackColumn[j] += 1;
+                else if(j == 6)
+                    stackColumn[j] += 1; 
+                else if(j == 7)
+                    stackColumn[j] += 1;
+                else if(j == 8)
+                    stackColumn[j] += 1;
+                else if(j == 9)
+                    stackColumn[j] += 1;
+            }            
+            else if(*(numberXO + i * ver + j) == mark1){
+                if(j == 0)
+                    stackColumnCom[j] += 1;
+                else if(j == 1)
+                    stackColumnCom[j] += 1;
+                else if(j == 2)
+                    stackColumnCom[j] += 1;
+                else if(j == 3)
+                    stackColumnCom[j] += 1;
+                else if(j == 4)
+                    stackColumnCom[j] += 1;
+                else if(j == 5)
+                    stackColumnCom[j] += 1;
+                else if(j == 6)
+                    stackColumnCom[j] += 1; 
+                else if(j == 7)
+                    stackColumnCom[j] += 1;
+                else if(j == 8)
+                    stackColumnCom[j] += 1;
+                else if(j == 9)
+                    stackColumnCom[j] += 1;
+            }
+
+            if(stackColumn[j] == hori){
+                isTrue = true;
+                break;
+            }else if(stackColumnCom[j] == hori){
+                isTrueCom = true;
+                break;
+            }
+        }
+        if(isTrue){
+            return 1;
+            break;
+        }else if(isTrueCom){
+            return 2;
+            break;
+        }
+    }
+
+    if(!isTrue)
+        return 0;
+}
+
+const int CheckobliqueXOGame(char* numberXO, char mark, char mark1, int ver, int hori){
+    int oblique = 0;
+    bool isTrue = false;
+
+    for(int i = 0; i < hori; i++){
+        for(int j = 0; j < ver; j++){
+            if(*(numberXO + i * ver + j) == mark){
+                
+            }
+        }
+    }  
+}
+
+const int CheckwinXOGame(char* numberXO, String name, char mark, int ver, int hori, char mark1){
+    
+    int Checkrow = CheckrowXOGame(numberXO, mark, mark1, ver, hori);
+    int Checkcolumn = CheckcolumnXOGame(numberXO, mark, mark1, ver, hori);
+
+    if(Checkrow != 0){
+        if(Checkrow == 1){
+            return 1;
+        }else{
+            return 2;
+        }
+    }else{
+        if(Checkcolumn != 0){
+            if(Checkcolumn == 1){
+                return 1;
+            }else{
+                return 2;
+            }
+        }
+    }
+    
+    // int count = 0, countcom = 0;
+    // int countrow = ver;
+    // int countcolumn = hori;
+    // int column[10] = {0};
+    // int row[10] = {0};
+    // int rowcom[10] = {0};
+    // int columncom[10] = {0};
+    // int stack[9] = {0};
+    // int top = 0;
+
+    // for(int i = 0; i < 9; i++){
+    //     printf("%d ", stack[i]);
+    // }
+    // printf("\n");
+    
+    // printf("%d", CheckrowXOGame(numberXO, mark, mark1, ver, hori));
+
+    /*
     for(int i = 0; i < hori; i++){
         for(int j = 0; j < ver; j++){
             if(i == 0){
@@ -340,6 +490,18 @@ const int CheckwinXOGame(char* numberXO, String name, char mark, int ver, int ho
             }
         }
     }
+    */
+
+    // for(int i = 0; i < 10; i++){
+    //     printf("row[%d] : %d ", i, row[i]);
+    // }
+    // printf("\n");
+
+    // for(int i = 0; i < 10; i++){
+    //     printf("column[%d] : %d ", i, column[i]);
+    // }
+    // printf("\n");
+    
 }
 
 int main(void){
@@ -371,7 +533,7 @@ int main(void){
         ptrrow[i] = i + 1;
     }
 
-    New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+    // New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
 
     printf("Duel Computer or Duel player\n");
     printf("Want duel co0mputer select 0 but select 1 will duel player\n");
@@ -413,6 +575,12 @@ int main(void){
             int temp = 0;
             if(attackFirstSecond == 1){
                 New_Computer(ptrNumberXO, mark, vertical, horizontal);
+                New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+                temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
+                if(temp == 1 || temp == 2){
+                    isComplete = false;
+                    break;
+                }
                 NewPlayer(ptrNumberXO, mark, nameplayer, vertical);
                 New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
                 CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
@@ -425,7 +593,6 @@ int main(void){
                 NewPlayer(ptrNumberXO, mark, nameplayer, vertical);
                 New_Computer(ptrNumberXO, mark, vertical, horizontal);
                 New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
-                CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
                 temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
                 if(temp == 1 || temp == 2){
                     isComplete = false;
@@ -434,7 +601,6 @@ int main(void){
             }
         }
     }else{
-        /*
         printf("Duel Player\n");
         String nameplayer1;
         char Playername1[10];
@@ -488,38 +654,38 @@ int main(void){
 
         printf("### XO GAME ###\n");
         printf("+-+-+-+\n");
-        New_DisplayXOGame(numberXO1, column, row);
+        New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
 
         while(isComplete){     
             int temp = 0;
             if(attackFirstSecond == 1){
-                NewPlayer(numberXO1, mark1, nameplayer1);
-                New_DisplayXOGame(numberXO1, column, row);
-                temp = CheckwinDisplayBoardGame3(numberXO1, nameplayer, nameplayer1, mark, mark1);
+                NewPlayer(ptrNumberXO, mark, nameplayer, vertical);
+                New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+                temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, mark1);
                 if(temp == 1 || temp == 2){
                     isComplete = false;
                     break;
                 }
 
-                NewPlayer(numberXO1, mark, nameplayer);
-                New_DisplayXOGame(numberXO1, column, row);
-                temp = CheckwinDisplayBoardGame3(numberXO1, nameplayer, nameplayer1, mark, mark1);
+                NewPlayer(ptrNumberXO, mark1, nameplayer1, vertical);
+                New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+                temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, mark1);
                 if(temp == 1 || temp == 2){
                     isComplete = false;
                     break;
                 }
             }else{
-                NewPlayer(numberXO1, mark, nameplayer);
-                New_DisplayXOGame(numberXO1, column, row);
-                temp = CheckwinDisplayBoardGame3(numberXO1, nameplayer, nameplayer1, mark, mark1);
+                NewPlayer(ptrNumberXO, mark1, nameplayer1, vertical);
+                New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+                temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, mark1);
                 if(temp == 1 || temp == 2){
                     isComplete = false;
                     break;
                 }
 
-                NewPlayer(numberXO1, mark1, nameplayer1);
-                New_DisplayXOGame(numberXO1, column, row);
-                temp = CheckwinDisplayBoardGame3(numberXO1, nameplayer, nameplayer1, mark, mark1);
+                NewPlayer(ptrNumberXO, mark, nameplayer, vertical);
+                New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
+                temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, mark1);
                 if(temp == 1 || temp == 2){
                     isComplete = false;
                     break;
@@ -527,7 +693,6 @@ int main(void){
             }
 
         }
-        */
     }
     
 }
