@@ -7,6 +7,12 @@
 
 typedef char String[1024];
 
+typedef struct colorlist
+{
+    /* data */
+} colorlist;
+
+
 int main(void){
     
 }
