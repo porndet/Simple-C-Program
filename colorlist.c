@@ -7,11 +7,6 @@
 
 typedef char String[1024];
 
-int main() {
-    String Uservalue;
-
-    scanf("%s", Uservalue);
-    printf("%s", Uservalue);
-
-	return 0;
+int main(void){
+    
 }

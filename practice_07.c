@@ -174,21 +174,30 @@ const int CheckcolumnXOGame(char* numberXO, char mark, char mark1, int ver, int 
 const int CheckobliqueXOGame(char* numberXO, char mark, char mark1, int ver, int hori){
     int oblique = 0;
     bool isTrue = false;
-
+    
     for(int i = 0; i < hori; i++){
         for(int j = 0; j < ver; j++){
             if(*(numberXO + i * ver + j) == mark){
-                
+                if(i == j){
+                    oblique += 1;
+                }
+
+                if(oblique == hori){
+                    isTrue = true;
+                    break;
+                }
             }
         }
-    }  
+    }
+    return 0;
 }
 
 const int CheckwinXOGame(char* numberXO, String name, char mark, int ver, int hori, char mark1){
     
     int Checkrow = CheckrowXOGame(numberXO, mark, mark1, ver, hori);
     int Checkcolumn = CheckcolumnXOGame(numberXO, mark, mark1, ver, hori);
-
+    CheckobliqueXOGame(numberXO, mark, mark1, ver, hori);
+    
     if(Checkrow != 0){
         if(Checkrow == 1){
             return 1;
@@ -202,6 +211,8 @@ const int CheckwinXOGame(char* numberXO, String name, char mark, int ver, int ho
             }else{
                 return 2;
             }
+        }else{
+            return 0;
         }
     }
     
@@ -536,7 +547,7 @@ int main(void){
     // New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
 
     printf("Duel Computer or Duel player\n");
-    printf("Want duel co0mputer select 0 but select 1 will duel player\n");
+    printf("Want duel computer select 0 but select 1 will duel player\n");
     scanf("%d", &duel);
 
     if(duel == 0){
@@ -581,9 +592,9 @@ int main(void){
                     isComplete = false;
                     break;
                 }
+
                 NewPlayer(ptrNumberXO, mark, nameplayer, vertical);
                 New_DisplayXOGame(ptrNumberXO, ptrcolumn, ptrrow, vertical, horizontal);
-                CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
                 temp = CheckwinXOGame(ptrNumberXO, nameplayer, mark, vertical, horizontal, '*');
                 if(temp == 1 || temp == 2){
                     isComplete = false;
